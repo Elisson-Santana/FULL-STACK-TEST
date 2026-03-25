@@ -23,7 +23,3 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-//qualquer coisa teste
-//teste
-//merge
-//testes1234
