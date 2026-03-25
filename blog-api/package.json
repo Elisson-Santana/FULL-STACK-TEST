@@ -24,5 +24,11 @@
     "testMatch": [
       "**/tests/**/*.test.js"
     ]
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
