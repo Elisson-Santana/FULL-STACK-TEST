@@ -26,7 +26,7 @@ const searchPosts = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Parâmetro "q" é obrigatório.' });
     }
     const regex = new RegExp(q.trim(), 'i');
-    const posts = await Post.find({ $or: [{ title: regex }, { content: regex }] });
+    const posts = await Post.find({ $or: [{ title: regex }, { content: regex }, { author: regex }] });
     res.json({ success: true, count: posts.length, data: posts });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
