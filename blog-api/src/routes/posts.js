@@ -5,7 +5,6 @@ const { validateCreate, validateUpdate } = require('../middleware/validation');
 
 // IMPORTANT: /search must come before /:id so Express doesn't treat "search" as an id
 router.get('/search', ctrl.searchPosts);
-
 router.get('/', ctrl.listPosts);
 router.get('/:id', ctrl.getPost);
 router.post('/', validateCreate, ctrl.createPost);
