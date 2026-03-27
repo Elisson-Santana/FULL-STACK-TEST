@@ -140,5 +140,20 @@ describe('Blog API', () => {
     });
 
   });
+  describe('Validação de dados', () => {
+    it('retorna 400 para dados inválidos', async () => {
+      const res = await request(app)
+        .post('/posts')
+        .send({
+          title: '', // título vazio
+          content: 'Conteúdo válido',
+          author: 'Prof. Teste',
+        });
+      expect(res.status).toBe(400);
+    });
+
+  });
+
+
 
 });
