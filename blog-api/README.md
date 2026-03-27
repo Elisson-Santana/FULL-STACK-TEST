@@ -1,6 +1,6 @@
 # Blog API
 
-API REST para aplicação de blogging, pronta para integração com OutSystems.
+API REST para aplicação de blog, pronta para integração com OutSystems.
 
 ## Instalação
 
