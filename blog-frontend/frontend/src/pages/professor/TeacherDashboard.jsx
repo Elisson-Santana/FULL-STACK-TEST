@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { api } from "../../services/api";
 import PostCard from "../../components/PostCard/PostCard";
 import PostModal from "../../components/PostModal/PostModal";
-import PostForm from "../../components/PostForm/PostForm";
+import PostForm from "./PostForm";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import "./Dashboard.css";
 

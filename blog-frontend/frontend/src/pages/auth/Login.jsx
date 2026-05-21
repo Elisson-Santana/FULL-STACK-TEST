@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TEACHER_CODE = "prof2024";
 const STUDENT_CODE = "aluno2024";
@@ -7,13 +8,16 @@ export default function Login({ onLogin }) {
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [shake, setShake] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (code === TEACHER_CODE) {
       onLogin("teacher");
+      navigate("/teacher");
     } else if (code === STUDENT_CODE) {
       onLogin("student");
+      navigate("/student");
     } else {
       setError("Código inválido.");
       setShake(true);

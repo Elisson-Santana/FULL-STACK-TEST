@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { api } from "../../services/api";
 import PostCard from "../../components/PostCard/PostCard";
 import PostModal from "../../components/PostModal/PostModal";
-import "../Dashboard.css";
-
+import "./Dashboard.css";
 export default function StudentDashboard({ user, onLogout }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
