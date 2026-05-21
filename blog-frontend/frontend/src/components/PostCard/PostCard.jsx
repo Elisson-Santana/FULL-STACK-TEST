@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function PostCard({ post, isTeacher, onEdit, onDelete }) {
+export default function PostCard({ post, isTeacher, onEdit, onDelete, onClick, index }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   const date = new Date(post.createdAt).toLocaleDateString("pt-BR", {
@@ -8,7 +8,7 @@ export default function PostCard({ post, isTeacher, onEdit, onDelete }) {
   });
 
   return (
-    <article style={styles.card}>
+    <article style={styles.card} onClick={onClick}>
       <div style={styles.meta}>
         <span style={styles.author}>{post.author}</span>
         <span style={styles.dot}>·</span>
@@ -22,12 +22,12 @@ export default function PostCard({ post, isTeacher, onEdit, onDelete }) {
           {confirmDelete ? (
             <>
               <span style={styles.confirmText}>Confirmar exclusão?</span>
-              <button style={styles.btnDanger} onClick={() => onDelete(post._id)}>Sim, excluir</button>
+              <button style={styles.btnDanger} onClick={onDelete}>Sim, excluir</button>
               <button style={styles.btnGhost} onClick={() => setConfirmDelete(false)}>Cancelar</button>
             </>
           ) : (
             <>
-              <button style={styles.btnSecondary} onClick={() => onEdit(post)}>Editar</button>
+              <button style={styles.btnSecondary} onClick={onEdit}>Editar</button>
               <button style={styles.btnGhost} onClick={() => setConfirmDelete(true)}>Excluir</button>
             </>
           )}

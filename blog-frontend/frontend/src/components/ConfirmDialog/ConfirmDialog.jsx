@@ -1,4 +1,4 @@
-import "../pages/Dashboard.css";
+import "../../pages/professor/Dashboard.css";
 
 export default function ConfirmDialog({ title, message, onConfirm, onCancel }) {
   return (
