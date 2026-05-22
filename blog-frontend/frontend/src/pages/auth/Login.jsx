@@ -14,10 +14,10 @@ export default function Login({ onLogin }) {
     e.preventDefault();
     if (code === TEACHER_CODE) {
       onLogin("teacher");
-      navigate("/teacher");
+      // remova o navigate daqui
     } else if (code === STUDENT_CODE) {
       onLogin("student");
-      navigate("/student");
+      // remova o navigate daqui
     } else {
       setError("Código inválido.");
       setShake(true);

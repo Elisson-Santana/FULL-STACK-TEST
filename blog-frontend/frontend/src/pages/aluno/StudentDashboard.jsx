@@ -16,6 +16,8 @@ export default function StudentDashboard({ user, onLogout }) {
     setError("");
     try {
       const data = await api.listPosts();
+      console.log("resposta da API:", data); // log temporário
+      console.log("data.data:", data.data);  // log temporário
       setPosts(data.data);
     } catch (e) {
       setError(e.message);
@@ -45,6 +47,8 @@ export default function StudentDashboard({ user, onLogout }) {
     setSearch("");
     loadPosts();
   };
+
+  
 
   return (
     <div className="dash-root student-theme">
