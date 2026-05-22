@@ -3,7 +3,7 @@ import { api } from "../../services/api";
 import PostCard from "../../components/PostCard/PostCard";
 import PostModal from "../../components/PostModal/PostModal";
 import PostForm from "./PostForm";
-import ConfirmDialog from "../../components/ConfirmDialog";
+import ConfirmDialog from "../../components/ConfirmDialog/ConfirmDialog";
 import "./Dashboard.css";
 
 export default function TeacherDashboard({ user, onLogout }) {
