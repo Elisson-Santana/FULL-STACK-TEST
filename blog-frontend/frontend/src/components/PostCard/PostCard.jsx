@@ -22,13 +22,13 @@ export default function PostCard({ post, isTeacher, onEdit, onDelete, onClick, i
           {confirmDelete ? (
             <>
               <span style={styles.confirmText}>Confirmar exclusão?</span>
-              <button style={styles.btnDanger} onClick={onDelete}>Sim, excluir</button>
-              <button style={styles.btnGhost} onClick={() => setConfirmDelete(false)}>Cancelar</button>
+              <button style={styles.btnDanger} onClick={(e) => { e.stopPropagation(); onDelete(e); }}>Sim, excluir</button>
+              <button style={styles.btnGhost} onClick={(e) => { e.stopPropagation(); setConfirmDelete(false); }}>Cancelar</button>
             </>
           ) : (
             <>
-              <button style={styles.btnSecondary} onClick={onEdit}>Editar</button>
-              <button style={styles.btnGhost} onClick={() => setConfirmDelete(true)}>Excluir</button>
+              <button style={styles.btnSecondary} onClick={(e) => { e.stopPropagation(); onEdit(e); }}>Editar</button>
+              <button style={styles.btnGhost} onClick={(e) => { e.stopPropagation(); setConfirmDelete(true); }}>Excluir</button>
             </>
           )}
         </div>

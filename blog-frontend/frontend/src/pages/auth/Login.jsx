@@ -25,6 +25,7 @@ export default function Login({ onLogin }) {
     }
   };
 
+  
   return (
     <div style={styles.wrapper}>
       <div style={styles.decorLine} />

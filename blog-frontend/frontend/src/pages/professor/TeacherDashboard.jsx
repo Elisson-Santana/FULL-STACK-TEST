@@ -29,7 +29,7 @@ export default function TeacherDashboard({ user, onLogout }) {
     setError("");
     try {
       const data = await api.listPosts();
-      setPosts(data.data);
+      setPosts(data.data.data);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -46,7 +46,7 @@ export default function TeacherDashboard({ user, onLogout }) {
     setError("");
     try {
       const data = await api.searchPosts(search);
-      setPosts(data.data);
+      setPosts(data.data.data);
     } catch (e) {
       setError(e.message);
     } finally {

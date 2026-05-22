@@ -16,9 +16,7 @@ export default function StudentDashboard({ user, onLogout }) {
     setError("");
     try {
       const data = await api.listPosts();
-      console.log("resposta da API:", data); // log temporário
-      console.log("data.data:", data.data);  // log temporário
-      setPosts(data.data);
+      setPosts(data.data.data); //Maior problema estava aqui, era data.data e não data.data.data
     } catch (e) {
       setError(e.message);
     } finally {
@@ -35,7 +33,8 @@ export default function StudentDashboard({ user, onLogout }) {
     setError("");
     try {
       const data = await api.searchPosts(search);
-      setPosts(data.data);
+      setPosts(data.data.data); // era data.data
+
     } catch (e) {
       setError(e.message);
     } finally {
@@ -48,7 +47,7 @@ export default function StudentDashboard({ user, onLogout }) {
     loadPosts();
   };
 
-  
+
 
   return (
     <div className="dash-root student-theme">
