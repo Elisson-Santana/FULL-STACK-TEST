@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "./img/alunoeprof.png";
+
 
 const TEACHER_CODE = "prof2024";
 const STUDENT_CODE = "aluno2024";
@@ -25,13 +27,12 @@ export default function Login({ onLogin }) {
     }
   };
 
-  
   return (
     <div style={styles.wrapper}>
       <div style={styles.decorLine} />
       <div style={styles.card} className={shake ? "shake" : ""}>
         <div style={styles.logoArea}>
-          <span style={styles.logoIcon}>✦</span>
+          <span><img src={logo} alt="logo" /></span>
           <h1 style={styles.title}>Diário Escolar</h1>
           <p style={styles.subtitle}>Blog colaborativo da turma</p>
         </div>

@@ -88,8 +88,8 @@ const styles = {
   confirmText: { fontSize: "13px", color: "var(--ink-muted)", marginRight: "4px" },
   btnSecondary: {
     padding: "7px 14px",
-    background: "var(--accent-light)",
-    color: "var(--accent)",
+    background: "var(--accent)",
+    color: "var(--ink)",
     borderRadius: "var(--radius)",
     fontSize: "13px",
     fontWeight: 500,
