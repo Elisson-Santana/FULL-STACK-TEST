@@ -28,6 +28,8 @@ export default function Login({ onLogin }) {
   };
 
   return (
+
+    
     <div style={styles.wrapper}>
       <div style={styles.decorLine} />
       <div style={styles.card} className={shake ? "shake" : ""}>
@@ -63,6 +65,7 @@ export default function Login({ onLogin }) {
       </div>
 
       <div style={styles.bgPattern} aria-hidden="true" />
+      
 
       <style>{`
         @keyframes shake {
