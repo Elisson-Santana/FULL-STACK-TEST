@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { UserContext } from "../UserContext";
 
 import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
 import StudentDashboard from "../pages/aluno/StudentDashboard";
 import TeacherDashboard from "../pages/professor/TeacherDashboard";
 import PostForm from "../pages/professor/PostForm";
@@ -20,12 +21,36 @@ function AppRoutes() {
       <Routes>
         {/* Login */}
         <Route
-          path="/"
+          path="/login"
           element={
             user ? (
               <Navigate to={user.role === "teacher" ? "/teacher" : "/student"} />
             ) : (
               <Login onLogin={handleLogin} />
+            )
+          }
+        />
+
+        {/* Registro */}
+        <Route
+          path="/register"
+          element={
+            user ? (
+              <Navigate to={user.role === "teacher" ? "/teacher" : "/student"} />
+            ) : (
+              <Register />
+            )
+          }
+        />
+
+        {/* Home redireciona para login */}
+        <Route
+          path="/"
+          element={
+            user ? (
+              <Navigate to={user.role === "teacher" ? "/teacher" : "/student"} />
+            ) : (
+              <Navigate to="/login" />
             )
           }
         />
@@ -37,7 +62,7 @@ function AppRoutes() {
             user && user.role === "student" ? (
               <StudentDashboard user={user} onLogout={logout} />
             ) : (
-              <Navigate to="/" />
+              <Navigate to="/login" />
             )
           }
         />
@@ -49,7 +74,7 @@ function AppRoutes() {
             user && user.role === "teacher" ? (
               <TeacherDashboard user={user} onLogout={logout} />
             ) : (
-              <Navigate to="/" />
+              <Navigate to="/login" />
             )
           }
         />
@@ -61,13 +86,13 @@ function AppRoutes() {
             user && user.role === "teacher" ? (
               <PostForm />
             ) : (
-              <Navigate to="/" />
+              <Navigate to="/login" />
             )
           }
         />
 
         {/* 404 */}
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
   );

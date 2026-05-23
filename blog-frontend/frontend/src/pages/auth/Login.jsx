@@ -1,38 +1,58 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { api } from "../../services/api";
 import logo from "./img/alunoeprof.png";
 
-
-const TEACHER_CODE = "prof2024";
-const STUDENT_CODE = "aluno2024";
-
 export default function Login({ onLogin }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
-  const [shake, setShake] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [loginMode, setLoginMode] = useState("code");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const TEACHER_CODE = "prof2024";
+  const STUDENT_CODE = "aluno2024";
+
+  const handleCodeSubmit = (e) => {
     e.preventDefault();
     if (code === TEACHER_CODE) {
       onLogin("teacher");
-      // remova o navigate daqui
     } else if (code === STUDENT_CODE) {
       onLogin("student");
-      // remova o navigate daqui
     } else {
       setError("Código inválido.");
-      setShake(true);
-      setTimeout(() => setShake(false), 500);
+    }
+  };
+
+  const handleEmailSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (!email || !password) {
+      setError("Email e senha são obrigatórios.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await api.loginUser(email, password);
+      if (response.data.success) {
+        localStorage.setItem("user", JSON.stringify(response.data.data));
+        navigate("/student");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Email ou senha incorretos.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-
-    
     <div style={styles.wrapper}>
       <div style={styles.decorLine} />
-      <div style={styles.card} className={shake ? "shake" : ""}>
+      <div style={styles.card}>
         <div style={styles.logoArea}>
           <span><img src={logo} alt="logo" style={styles.logo} /></span>
           <h1 style={styles.title}>BlogSchool</h1>
@@ -41,31 +61,92 @@ export default function Login({ onLogin }) {
 
         <div style={styles.divider} />
 
-        <form onSubmit={handleSubmit} style={styles.form}>
-          <label style={styles.label}>Código de acesso</label>
-          <input
-            style={styles.input}
-            type="password"
-            placeholder="Digite seu código"
-            value={code}
-            onChange={(e) => { setCode(e.target.value); setError(""); }}
-            autoFocus
-          />
-          {error && <p style={styles.error}>{error}</p>}
-
-          <button type="submit" style={styles.btn}>
-            Entrar
+        {/* Modo de Login */}
+        <div style={styles.modeToggle}>
+          <button
+            style={{
+              ...styles.modeBtn,
+              ...(loginMode === "code" ? styles.modeBtnActive : {}),
+            }}
+            onClick={() => { setLoginMode("code"); setError(""); }}
+          >
+            Código
           </button>
-        </form>
+          <button
+            style={{
+              ...styles.modeBtn,
+              ...(loginMode === "email" ? styles.modeBtnActive : {}),
+            }}
+            onClick={() => { setLoginMode("email"); setError(""); }}
+          >
+            Email
+          </button>
+        </div>
+
+        <div style={styles.divider} />
+
+        {/* Formulário por Código */}
+        {loginMode === "code" && (
+          <form onSubmit={handleCodeSubmit} style={styles.form}>
+            <label style={styles.label}>Código de acesso</label>
+            <input
+              style={styles.input}
+              type="password"
+              placeholder="Digite seu código"
+              value={code}
+              onChange={(e) => { setCode(e.target.value); setError(""); }}
+              autoFocus
+            />
+            {error && <p style={styles.error}>{error}</p>}
+
+            <button type="submit" style={styles.btn}>
+              Entrar
+            </button>
+          </form>
+        )}
+
+        {/* Formulário por Email */}
+        {loginMode === "email" && (
+          <form onSubmit={handleEmailSubmit} style={styles.form}>
+            <label style={styles.label}>Email</label>
+            <input
+              style={styles.input}
+              type="email"
+              placeholder="seu@email.com"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); setError(""); }}
+              disabled={loading}
+            />
+
+            <label style={styles.label} style={{ marginTop: "12px" }}>Senha</label>
+            <input
+              style={styles.input}
+              type="password"
+              placeholder="Digite sua senha"
+              value={password}
+              onChange={(e) => { setPassword(e.target.value); setError(""); }}
+              disabled={loading}
+            />
+
+            {error && <p style={styles.error}>{error}</p>}
+
+            <button type="submit" style={styles.btn} disabled={loading}>
+              {loading ? "Entrando..." : "Entrar"}
+            </button>
+          </form>
+        )}
 
         <p style={styles.hint}>
           <span style={{ color: "#c1440e" }}>Professores</span> e{" "}
           <span style={{ color: "#2d6a4f" }}>alunos</span> possuem códigos diferentes.
         </p>
+
+        <p style={styles.footer}>
+          Não tem uma conta? <Link to="/register" style={styles.link}>Cadastre-se</Link>
+        </p>
       </div>
 
       <div style={styles.bgPattern} aria-hidden="true" />
-      
 
       <style>{`
         @keyframes shake {
@@ -125,17 +206,11 @@ const styles = {
     marginBottom: "24px",
   },
   logo: {
-  width: "100%",
-  maxWidth: "150px",   // tamanho máximo que quiser
-  height: "auto",       // mantém proporção
-  display: "block",
-  margin: "0 auto 8px",
-},
-  logoIcon: {
+    width: "100%",
+    maxWidth: "150px",
+    height: "auto",
     display: "block",
-    fontSize: "28px",
-    color: "var(--accent)",
-    marginBottom: "8px",
+    margin: "0 auto 8px",
   },
   title: {
     fontFamily: "var(--font-display)",
@@ -156,10 +231,32 @@ const styles = {
     background: "var(--border)",
     margin: "24px 0",
   },
+  modeToggle: {
+    display: "flex",
+    gap: "8px",
+    marginBottom: "16px",
+  },
+  modeBtn: {
+    flex: 1,
+    padding: "10px",
+    fontSize: "13px",
+    fontWeight: 500,
+    border: "1px solid var(--border)",
+    background: "var(--surface)",
+    color: "var(--ink-muted)",
+    borderRadius: "var(--radius)",
+    cursor: "pointer",
+    transition: "all 0.2s",
+  },
+  modeBtnActive: {
+    background: "var(--ink)",
+    color: "#fff",
+    borderColor: "var(--ink)",
+  },
   form: {
     display: "flex",
     flexDirection: "column",
-    gap: "10px",
+    gap: "6px",
   },
   label: {
     fontSize: "12px",
@@ -180,10 +277,11 @@ const styles = {
   error: {
     fontSize: "13px",
     color: "var(--accent)",
-    marginTop: "-4px",
+    marginTop: "4px",
+    marginBottom: "6px",
   },
   btn: {
-    marginTop: "6px",
+    marginTop: "12px",
     background: "var(--ink)",
     color: "#fff",
     borderRadius: "var(--radius)",
@@ -192,6 +290,8 @@ const styles = {
     fontWeight: 500,
     letterSpacing: "0.04em",
     transition: "background 0.2s, transform 0.1s",
+    border: "none",
+    cursor: "pointer",
   },
   hint: {
     marginTop: "20px",
@@ -200,4 +300,17 @@ const styles = {
     textAlign: "center",
     lineHeight: 1.5,
   },
+  footer: {
+    marginTop: "12px",
+    fontSize: "13px",
+    color: "var(--ink-muted)",
+    textAlign: "center",
+    lineHeight: 1.5,
+  },
+  link: {
+    color: "var(--accent)",
+    textDecoration: "none",
+    fontWeight: 500,
+  },
 };
+

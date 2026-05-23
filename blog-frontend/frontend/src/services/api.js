@@ -14,4 +14,8 @@ export const api = {
   createPost: (data) => instance.post("/posts", data),
   updatePost: (id, data) => instance.put(`/posts/${id}`, data),
   deletePost: (id) => instance.delete(`/posts/${id}`),
+
+  // Users
+  registerUser: (email, password) => instance.post("/users/register", { email, password }),
+  loginUser: (email, password) => instance.post("/users/login", { email, password }),
 };
