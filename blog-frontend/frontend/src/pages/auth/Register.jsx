@@ -66,7 +66,7 @@ export default function Register() {
             disabled={loading}
           />
 
-          <label style={styles.label} style={{ marginTop: "12px" }}>Senha</label>
+          <label style={{ ...styles.label, marginTop: "12px" }}>Senha</label>
           <input
             style={styles.input}
             type="password"
@@ -76,7 +76,7 @@ export default function Register() {
             disabled={loading}
           />
 
-          <label style={styles.label} style={{ marginTop: "12px" }}>Confirme a Senha</label>
+          <label style={{ ...styles.label, marginTop: "12px" }}>Confirme a Senha</label>
           <input
             style={styles.input}
             type="password"
