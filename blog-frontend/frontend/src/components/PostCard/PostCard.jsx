@@ -44,6 +44,8 @@ const styles = {
     borderRadius: "var(--radius-lg)",
     padding: "28px 32px",
     transition: "box-shadow 0.2s, transform 0.2s",
+    display: "flex",           
+    flexDirection: "column",
   },
   meta: {
     display: "flex",
@@ -76,6 +78,7 @@ const styles = {
     WebkitLineClamp: 4,
     WebkitBoxOrient: "vertical",
     overflow: "hidden",
+    flex: 1,
   },
   actions: {
     display: "flex",

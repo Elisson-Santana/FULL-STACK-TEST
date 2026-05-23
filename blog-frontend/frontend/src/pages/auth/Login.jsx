@@ -34,7 +34,7 @@ export default function Login({ onLogin }) {
       <div style={styles.decorLine} />
       <div style={styles.card} className={shake ? "shake" : ""}>
         <div style={styles.logoArea}>
-          <span><img src={logo} alt="logo" /></span>
+          <span><img src={logo} alt="logo" style={styles.logo} /></span>
           <h1 style={styles.title}>Diário Escolar</h1>
           <p style={styles.subtitle}>Blog colaborativo da turma</p>
         </div>
@@ -124,6 +124,13 @@ const styles = {
     textAlign: "center",
     marginBottom: "24px",
   },
+  logo: {
+  width: "100%",
+  maxWidth: "150px",   // tamanho máximo que quiser
+  height: "auto",       // mantém proporção
+  display: "block",
+  margin: "0 auto 8px",
+},
   logoIcon: {
     display: "block",
     fontSize: "28px",
