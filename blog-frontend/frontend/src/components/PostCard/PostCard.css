@@ -71,6 +71,6 @@
   cursor: pointer;
   transition: all 0.15s;
 }
-.card-action-btn:hover { background: rgba(255,255,255,0.08); color: #f5f0e8; }
+.card-action-btn:hover { background: rgba(255,255,255,0.08); color: #000000; }
 .edit-btn:hover { border-color: rgba(247,201,126,0.3); color: #f7c97e; }
 .delete-btn:hover { border-color: rgba(248,113,113,0.3); color: #f87171; }

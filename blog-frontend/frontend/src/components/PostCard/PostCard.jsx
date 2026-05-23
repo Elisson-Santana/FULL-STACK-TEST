@@ -22,13 +22,13 @@ export default function PostCard({ post, isTeacher, onEdit, onDelete, onClick, i
           {confirmDelete ? (
             <>
               <span style={styles.confirmText}>Confirmar exclusão?</span>
-              <button style={styles.btnDanger} onClick={onDelete}>Sim, excluir</button>
-              <button style={styles.btnGhost} onClick={() => setConfirmDelete(false)}>Cancelar</button>
+              <button style={styles.btnDanger} onClick={(e) => { e.stopPropagation(); onDelete(e); }}>Sim, excluir</button>
+              <button style={styles.btnGhost} onClick={(e) => { e.stopPropagation(); setConfirmDelete(false); }}>Cancelar</button>
             </>
           ) : (
             <>
-              <button style={styles.btnSecondary} onClick={onEdit}>Editar</button>
-              <button style={styles.btnGhost} onClick={() => setConfirmDelete(true)}>Excluir</button>
+              <button style={styles.btnSecondary} onClick={(e) => { e.stopPropagation(); onEdit(e); }}>Editar</button>
+              <button style={styles.btnGhost} onClick={(e) => { e.stopPropagation(); setConfirmDelete(true); }}>Excluir</button>
             </>
           )}
         </div>
@@ -44,6 +44,8 @@ const styles = {
     borderRadius: "var(--radius-lg)",
     padding: "28px 32px",
     transition: "box-shadow 0.2s, transform 0.2s",
+    display: "flex",           
+    flexDirection: "column",
   },
   meta: {
     display: "flex",
@@ -76,6 +78,7 @@ const styles = {
     WebkitLineClamp: 4,
     WebkitBoxOrient: "vertical",
     overflow: "hidden",
+    flex: 1,
   },
   actions: {
     display: "flex",
@@ -88,8 +91,8 @@ const styles = {
   confirmText: { fontSize: "13px", color: "var(--ink-muted)", marginRight: "4px" },
   btnSecondary: {
     padding: "7px 14px",
-    background: "var(--accent-light)",
-    color: "var(--accent)",
+    background: "var(--accent)",
+    color: "var(--ink)",
     borderRadius: "var(--radius)",
     fontSize: "13px",
     fontWeight: 500,

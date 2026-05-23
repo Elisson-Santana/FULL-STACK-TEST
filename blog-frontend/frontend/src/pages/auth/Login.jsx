@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "./img/alunoeprof.png";
+
 
 const TEACHER_CODE = "prof2024";
 const STUDENT_CODE = "aluno2024";
@@ -14,10 +16,10 @@ export default function Login({ onLogin }) {
     e.preventDefault();
     if (code === TEACHER_CODE) {
       onLogin("teacher");
-      navigate("/teacher");
+      // remova o navigate daqui
     } else if (code === STUDENT_CODE) {
       onLogin("student");
-      navigate("/student");
+      // remova o navigate daqui
     } else {
       setError("Código inválido.");
       setShake(true);
@@ -26,12 +28,14 @@ export default function Login({ onLogin }) {
   };
 
   return (
+
+    
     <div style={styles.wrapper}>
       <div style={styles.decorLine} />
       <div style={styles.card} className={shake ? "shake" : ""}>
         <div style={styles.logoArea}>
-          <span style={styles.logoIcon}>✦</span>
-          <h1 style={styles.title}>Diário Escolar</h1>
+          <span><img src={logo} alt="logo" style={styles.logo} /></span>
+          <h1 style={styles.title}>BlogSchool</h1>
           <p style={styles.subtitle}>Blog colaborativo da turma</p>
         </div>
 
@@ -61,6 +65,7 @@ export default function Login({ onLogin }) {
       </div>
 
       <div style={styles.bgPattern} aria-hidden="true" />
+      
 
       <style>{`
         @keyframes shake {
@@ -119,6 +124,13 @@ const styles = {
     textAlign: "center",
     marginBottom: "24px",
   },
+  logo: {
+  width: "100%",
+  maxWidth: "150px",   // tamanho máximo que quiser
+  height: "auto",       // mantém proporção
+  display: "block",
+  margin: "0 auto 8px",
+},
   logoIcon: {
     display: "block",
     fontSize: "28px",

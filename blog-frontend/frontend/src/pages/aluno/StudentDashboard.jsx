@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { api } from "../../services/api";
 import PostCard from "../../components/PostCard/PostCard";
 import PostModal from "../../components/PostModal/PostModal";
-import "./Dashboard.css";
-
+import "../professor/Dashboard.css";
 export default function StudentDashboard({ user, onLogout }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,7 +16,7 @@ export default function StudentDashboard({ user, onLogout }) {
     setError("");
     try {
       const data = await api.listPosts();
-      setPosts(data.data);
+      setPosts(data.data.data); //Maior problema estava aqui, era data.data e não data.data.data
     } catch (e) {
       setError(e.message);
     } finally {
@@ -34,7 +33,8 @@ export default function StudentDashboard({ user, onLogout }) {
     setError("");
     try {
       const data = await api.searchPosts(search);
-      setPosts(data.data);
+      setPosts(data.data.data); // era data.data
+
     } catch (e) {
       setError(e.message);
     } finally {
@@ -47,13 +47,15 @@ export default function StudentDashboard({ user, onLogout }) {
     loadPosts();
   };
 
+
+
   return (
     <div className="dash-root student-theme">
       <header className="dash-header">
         <div className="dash-header-inner">
           <div className="dash-brand">
             <span className="dash-logo">✏️</span>
-            <span className="dash-title">Blog Escolar</span>
+            <span className="dash-title">BlogSchool</span>
           </div>
           <div className="dash-user">
             <span className="user-badge student">🎒 {user.name}</span>

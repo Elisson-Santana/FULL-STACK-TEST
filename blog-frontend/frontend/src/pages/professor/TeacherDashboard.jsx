@@ -3,7 +3,7 @@ import { api } from "../../services/api";
 import PostCard from "../../components/PostCard/PostCard";
 import PostModal from "../../components/PostModal/PostModal";
 import PostForm from "./PostForm";
-import ConfirmDialog from "../../components/ConfirmDialog";
+import ConfirmDialog from "../../components/ConfirmDialog/ConfirmDialog";
 import "./Dashboard.css";
 
 export default function TeacherDashboard({ user, onLogout }) {
@@ -29,7 +29,7 @@ export default function TeacherDashboard({ user, onLogout }) {
     setError("");
     try {
       const data = await api.listPosts();
-      setPosts(data.data);
+      setPosts(data.data.data);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -46,7 +46,7 @@ export default function TeacherDashboard({ user, onLogout }) {
     setError("");
     try {
       const data = await api.searchPosts(search);
-      setPosts(data.data);
+      setPosts(data.data.data);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -101,7 +101,7 @@ export default function TeacherDashboard({ user, onLogout }) {
         <div className="dash-header-inner">
           <div className="dash-brand">
             <span className="dash-logo">✏️</span>
-            <span className="dash-title">Blog Escolar</span>
+            <span className="dash-title">BlogSchool</span>
           </div>
           <div className="dash-user">
             <span className="user-badge teacher">📚 Prof. {user.name}</span>
