@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
+import { UserContext } from "../../UserContext";
 import PostCard from "../../components/PostCard/PostCard";
 import PostModal from "../../components/PostModal/PostModal";
 import PostForm from "./PostForm";
 import ConfirmDialog from "../../components/ConfirmDialog/ConfirmDialog";
 import "./Dashboard.css";
 
-export default function TeacherDashboard({ user, onLogout }) {
+export default function TeacherDashboard({ user }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -14,10 +16,13 @@ export default function TeacherDashboard({ user, onLogout }) {
   const [searching, setSearching] = useState(false);
   const [selected, setSelected] = useState(null);
   const [formOpen, setFormOpen] = useState(false);
-  const [editing, setEditing] = useState(null); // post to edit
+  const [editing, setEditing] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState(null);
+  
+  const { logout } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const showToast = (msg, type = "success") => {
     setToast({ msg, type });
@@ -95,6 +100,11 @@ export default function TeacherDashboard({ user, onLogout }) {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <div className="dash-root teacher-theme">
       <header className="dash-header">
@@ -104,8 +114,8 @@ export default function TeacherDashboard({ user, onLogout }) {
             <span className="dash-title">BlogSchool</span>
           </div>
           <div className="dash-user">
-            <span className="user-badge teacher">📚 Prof. {user.name}</span>
-            <button className="logout-btn" onClick={onLogout}>Sair</button>
+            <span className="user-badge teacher">📚 Prof. {user?.name || "Professor"}</span>
+            <button className="logout-btn" onClick={handleLogout}>Sair</button>
           </div>
         </div>
       </header>
@@ -113,7 +123,7 @@ export default function TeacherDashboard({ user, onLogout }) {
       <main className="dash-main">
         <div className="dash-hero teacher-hero">
           <div>
-            <h2 className="dash-welcome">Olá, Prof. <em>{user.name}</em> 👋</h2>
+            <h2 className="dash-welcome">Olá, Prof. <em>{user?.name || "Professor"}</em> 👋</h2>
             <p className="dash-welcome-sub">Gerencie os posts do blog da sua turma.</p>
           </div>
           <button className="new-post-btn" onClick={() => setFormOpen(true)}>

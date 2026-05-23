@@ -1,22 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
+import { UserContext } from "../../UserContext";
 import PostCard from "../../components/PostCard/PostCard";
 import PostModal from "../../components/PostModal/PostModal";
 import "../professor/Dashboard.css";
-export default function StudentDashboard({ user, onLogout }) {
+
+export default function StudentDashboard({ user }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [searching, setSearching] = useState(false);
   const [selected, setSelected] = useState(null);
+  const { logout } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const loadPosts = async () => {
     setLoading(true);
     setError("");
     try {
       const data = await api.listPosts();
-      setPosts(data.data.data); //Maior problema estava aqui, era data.data e não data.data.data
+      setPosts(data.data.data);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -33,8 +38,7 @@ export default function StudentDashboard({ user, onLogout }) {
     setError("");
     try {
       const data = await api.searchPosts(search);
-      setPosts(data.data.data); // era data.data
-
+      setPosts(data.data.data);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -47,7 +51,10 @@ export default function StudentDashboard({ user, onLogout }) {
     loadPosts();
   };
 
-
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <div className="dash-root student-theme">
@@ -58,15 +65,15 @@ export default function StudentDashboard({ user, onLogout }) {
             <span className="dash-title">BlogSchool</span>
           </div>
           <div className="dash-user">
-            <span className="user-badge student">🎒 {user.name}</span>
-            <button className="logout-btn" onClick={onLogout}>Sair</button>
+            <span className="user-badge student">🎒 Aluno</span>
+            <button className="logout-btn" onClick={handleLogout}>Voltar</button>
           </div>
         </div>
       </header>
 
       <main className="dash-main">
         <div className="dash-hero">
-          <h2 className="dash-welcome">Olá, <em>{user.name}</em> 👋</h2>
+          <h2 className="dash-welcome">Bem-vindo ao Blog! 👋</h2>
           <p className="dash-welcome-sub">Explore os posts do blog da sua turma.</p>
         </div>
 
