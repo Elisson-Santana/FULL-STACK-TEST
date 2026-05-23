@@ -1,6 +1,6 @@
 const argon2 = require('argon2');
 const User = require('../models/userStore');
-
+//teste de pull
 const register = async (req, res) => {
   try {
     const { email, password } = req.body;
