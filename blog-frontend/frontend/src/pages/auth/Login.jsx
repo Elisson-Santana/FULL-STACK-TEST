@@ -35,7 +35,7 @@ export default function Login({ onLogin }) {
       <div style={styles.card} className={shake ? "shake" : ""}>
         <div style={styles.logoArea}>
           <span><img src={logo} alt="logo" style={styles.logo} /></span>
-          <h1 style={styles.title}>Diário Escolar</h1>
+          <h1 style={styles.title}>BlogSchool</h1>
           <p style={styles.subtitle}>Blog colaborativo da turma</p>
         </div>
 

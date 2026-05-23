@@ -55,7 +55,7 @@ export default function StudentDashboard({ user, onLogout }) {
         <div className="dash-header-inner">
           <div className="dash-brand">
             <span className="dash-logo">✏️</span>
-            <span className="dash-title">Blog Escolar</span>
+            <span className="dash-title">BlogSchool</span>
           </div>
           <div className="dash-user">
             <span className="user-badge student">🎒 {user.name}</span>

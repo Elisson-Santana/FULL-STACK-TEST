@@ -9,6 +9,7 @@
     "test": "jest --coverage"
   },
   "dependencies": {
+    "argon2": "^0.31.2",
     "cors": "^2.8.6",
     "dotenv": "^16.6.1",
     "express": "^4.22.1",
