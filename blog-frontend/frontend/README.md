@@ -50,4 +50,5 @@ src/
 
 ## Autor
 
-Johnatan Oliveira
+Johnatan Oliveira Santos
+rm369240
