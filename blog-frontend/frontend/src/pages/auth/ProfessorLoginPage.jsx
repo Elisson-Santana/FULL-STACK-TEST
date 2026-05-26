@@ -17,8 +17,8 @@ export default function ProfessorLoginPage() {
     e.preventDefault();
     setError("");
 
-    if (!email || !password || !name) {
-      setError("Email, senha e nome são obrigatórios.");
+    if (!email || !password) {
+      setError("Email e senha são obrigatórios.");
       return;
     }
 
@@ -30,8 +30,11 @@ export default function ProfessorLoginPage() {
     setLoading(true);
     try {
       const response = await api.loginUser(email, password);
+      console.log("Resposta da API:", response.data); // 👈 adiciona isso
+
       if (response.data.success) {
-        login("teacher", name.trim());
+        const teacherName = response.data.data.name; // pega do DB
+        login("teacher", teacherName);
         navigate("/teacher");
       }
     } catch (err) {
@@ -54,16 +57,7 @@ export default function ProfessorLoginPage() {
         <div style={styles.divider} />
 
         <form onSubmit={handleSubmit} style={styles.form}>
-          <label style={styles.label}>Nome Completo</label>
-          <input
-            style={styles.input}
-            type="text"
-            placeholder="Seu nome"
-            value={name}
-            onChange={(e) => { setName(e.target.value); setError(""); }}
-            disabled={loading}
-            autoFocus
-          />
+
 
           <label style={{ ...styles.label, marginTop: "12px" }}>Email</label>
           <input

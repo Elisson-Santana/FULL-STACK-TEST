@@ -16,6 +16,6 @@ export const api = {
   deletePost: (id) => instance.delete(`/posts/${id}`),
 
   // Users
-  registerUser: (email, password) => instance.post("/users/register", { email, password }),
+  registerUser: (name, email, password) => instance.post("/users/register", { name, email, password }),
   loginUser: (email, password) => instance.post("/users/login", { email, password }),
 };

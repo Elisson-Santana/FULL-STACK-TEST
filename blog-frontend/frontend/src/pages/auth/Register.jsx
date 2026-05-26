@@ -4,6 +4,7 @@ import { api } from "../../services/api";
 import logo from "./img/alunoeprof.png";
 
 export default function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -15,7 +16,7 @@ export default function Register() {
     e.preventDefault();
     setError("");
 
-    if (!email || !password || !passwordConfirm) {
+    if (!name || !email || !password || !passwordConfirm) {
       setError("Todos os campos são obrigatórios.");
       return;
     }
@@ -32,7 +33,7 @@ export default function Register() {
 
     setLoading(true);
     try {
-      const response = await api.registerUser(email, password);
+      const response = await api.registerUser(name, email, password);
       if (response.data.success) {
         navigate("/login");
       }
@@ -56,7 +57,17 @@ export default function Register() {
         <div style={styles.divider} />
 
         <form onSubmit={handleSubmit} style={styles.form}>
-          <label style={styles.label}>Email</label>
+          <label style={styles.label}>Nome</label>
+          <input
+            style={styles.input}
+            type="text"
+            placeholder="Seu nome"
+            value={name}
+            onChange={(e) => { setName(e.target.value); setError(""); }}
+            disabled={loading}
+          />
+
+          <label style={{ ...styles.label, marginTop: "12px" }}>Email</label>
           <input
             style={styles.input}
             type="email"

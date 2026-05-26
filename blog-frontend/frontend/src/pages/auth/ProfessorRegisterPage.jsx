@@ -35,7 +35,7 @@ export default function ProfessorRegisterPage() {
 
     setLoading(true);
     try {
-      const response = await api.registerUser(email, password);
+      const response = await api.registerUser(name, email, password);
       if (response.data.success) {
         login("teacher", name.trim());
         navigate("/teacher");

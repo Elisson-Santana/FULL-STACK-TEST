@@ -1,5 +1,10 @@
 import { createContext, useState, useEffect } from "react";
 
+/**
+ * Default username in Portuguese. Change here for localization.
+ */
+const DEFAULT_USERNAME = "Usuário";
+
 export const UserContext = createContext();
 
 export function UserProvider({ children }) {
@@ -18,7 +23,7 @@ export function UserProvider({ children }) {
   }, []);
 
   const login = (role, name = null) => {
-    const userData = { role, name: name || "Usuário" };
+    const userData = { role, name: name || DEFAULT_USERNAME };
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
   };

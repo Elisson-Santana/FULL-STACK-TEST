@@ -3,10 +3,10 @@ const User = require('../models/userStore');
 //teste de pull
 const register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ success: false, message: 'Email e senha são obrigatórios.' });
+    if (!name || !email || !password) {
+      return res.status(400).json({ success: false, message: 'Nome, email e senha são obrigatórios.' });
     }
 
     const userExists = await User.findOne({ email });
@@ -16,12 +16,12 @@ const register = async (req, res) => {
 
     const passwordHash = await argon2.hash(password);
 
-    const user = await User.create({ email, passwordHash });
+    const user = await User.create({ name, email, passwordHash });
 
     res.status(201).json({
       success: true,
       message: 'Usuário criado com sucesso.',
-      data: { id: user._id, email: user.email },
+      data: { id: user._id, name: user.name, email: user.email },
     });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -49,7 +49,7 @@ const login = async (req, res) => {
     res.json({
       success: true,
       message: 'Login realizado com sucesso.',
-      data: { id: user._id, email: user.email },
+      data: { id: user._id, name: user.name, email: user.email },
     });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
