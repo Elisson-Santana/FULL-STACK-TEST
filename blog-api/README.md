@@ -1,61 +1,63 @@
 # Blog API
 
-API REST para aplicação de blog, pronta para integração com OutSystems.
+API REST para aplicação de blogging desenvolvida com Node.js e Express.
+
+## Tecnologias
+
+- **Node.js** - Runtime JavaScript
+- **Express** - Framework web
+- **MongoDB** - Banco de dados NoSQL
+- **Mongoose** - ODM para MongoDB
+- **bcryptjs** - Hash de senhas
+- **Jest** - Testes unitários
 
 ## Instalação
 
 ```bash
+# Instalar dependências
 npm install
+
+# Configurar variáveis de ambiente
+# Copie o arquivo .env.example e renomeie para .env
 cp .env.example .env
-npm run dev
+
+# Edite o .env com suas credenciais do MongoDB
 ```
 
-## Endpoints
-
-| Método | Rota            | Descrição                        |
-|--------|-----------------|----------------------------------|
-| GET    | /posts          | Lista todos os posts             |
-| GET    | /posts/search   | Busca posts por palavra-chave    |
-| GET    | /posts/:id      | Retorna um post pelo ID          |
-| POST   | /posts          | Cria um novo post                |
-| PUT    | /posts/:id      | Edita um post existente          |
-| DELETE | /posts/:id      | Exclui um post                   |
-
-## Exemplos
-
-### Criar post
-```
-POST /posts
-Content-Type: application/json
-
-{
-  "title": "Meu Post",
-  "content": "Conteúdo do post",
-  "author": "Prof. Silva"
-}
-```
-
-### Buscar posts
-```
-GET /posts/search?q=javascript
-```
-
-### Editar post
-```
-PUT /posts/1
-Content-Type: application/json
-
-{
-  "title": "Novo Título"
-}
-```
-
-## Testes
+## Como usar
 
 ```bash
+# Modo desenvolvimento (com nodemon)
+npm run dev
+
+# Modo produção
+npm start
+
+# Rodar testes
 npm test
 ```
 
-## Integração com OutSystems
+O servidor estará disponível em `http://localhost:3000`
 
-Habilite CORS já está configurado por padrão. No OutSystems, aponte os REST Consume para `http://SEU_SERVIDOR:3000`.
+## Estrutura do projeto
+
+```
+src/
+├── controllers/    # Lógica das rotas
+├── models/         # Modelos de dados
+├── routes/         # Definição das rotas
+├── middleware/     # Middlewares customizados
+├── app.js          # Configuração do Express
+└── server.js       # Inicialização do servidor
+```
+
+## Endpoints principais
+
+- `GET /posts` - Listar posts
+- `POST /posts` - Criar novo post
+- `GET /users` - Listar usuários
+- `POST /users` - Registrar usuário
+
+## Autor
+
+Johnatan Oliveira
