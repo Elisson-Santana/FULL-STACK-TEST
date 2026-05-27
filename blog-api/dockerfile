@@ -1,11 +1,36 @@
+FROM node:20 AS backend
+
+WORKDIR /app
+
+# Instalar backend
+COPY blog-api/package*.json ./
+RUN npm install
+COPY blog-api/src ./src
+
+EXPOSE 3000
+
+# Build frontend
+FROM node:20 AS frontend-build
+
+WORKDIR /frontend
+
+COPY blog-frontend/frontend/package*.json ./
+RUN npm install
+COPY blog-frontend/frontend ./
+RUN npm run build
+
+# Final stage - Backend + Frontend estático
 FROM node:20
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install   # 🔥 ESSENCIAL
+# Backend
+COPY blog-api/package*.json ./
+RUN npm install
+COPY blog-api/src ./src
 
-COPY . .
+# Frontend build
+COPY --from=frontend-build /frontend/dist ./public
 
 EXPOSE 3000
 
